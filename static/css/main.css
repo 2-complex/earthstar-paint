@@ -2,7 +2,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#editor div, canvas {
+.editor div, canvas {
     position: absolute;
 }
 
@@ -58,29 +58,13 @@ body {
     right : 700px;
 }
 
-#hue-labeled-slider {
-    top : 10px;
-}
-
-#saturation-labeled-slider {
-    top : 40px;
-}
-
-#lightness-labeled-slider {
-    top : 70px;
-}
-
-#radius-labeled-slider {
-    top : 120px;
-}
-
 .labeled-slider {
     height : 30px;
     left : 0;
     right : 120;
 }
 
-#swatch {
+.swatch {
     border : 1px solid black;
     right : 10px;
     top : 10px;
@@ -93,12 +77,4 @@ body {
     font-family: geneva;
     right : 10px;
     width : 100px;
-}
-
-#info-display-hsv {
-    top : 115px;
-}
-
-#info-display-radius {
-    top : 135px;
 }

@@ -26,26 +26,30 @@ function make_tools_frame()
     let $swatch = $("<canvas>", {"class":"swatch", id:"swatch"}).attr({'width':100,'height':100});
 
     let tools_frame = $("<div>", {id:"tools-frame-1", "class":"tools-frame"}).append(
-        $("<div>", {id:"hue-labeled-slider", "class":"labeled-slider"}).append(
+        $("<div>", {id:"hue-labeled-slider", "class":"labeled-slider"}).css({top : 10})
+        .append(
             $("<div>", {"class": "prop-label"}).text("H"),
             $hue
         ),
-        $("<div>", {id:"saturation-labeled-slider", "class":"labeled-slider"}).append(
+        $("<div>", {id:"saturation-labeled-slider", "class":"labeled-slider"}).css({top : 40})
+        .append(
             $("<div>", {"class": "prop-label"}).text("S"),
             $saturation
         ),
-        $("<div>", {id:"lightness-labeled-slider", "class":"labeled-slider"}).append(
+        $("<div>", {id:"lightness-labeled-slider", "class":"labeled-slider"}).css({top : 70})
+        .append(
             $("<div>", {"class": "prop-label"}).text("L"),
             $lightness
         ),
-        $("<div>", {id:"radius-labeled-slider", "class":"labeled-slider"}).append(
+        $("<div>", {id:"radius-labeled-slider", "class":"labeled-slider"}).css({top : 120})
+        .append(
             $("<div>", {"class": "prop-label"}).text("R"),
             $radius
         ),
         $swatch,
         
-        $info_display_hsv,
-        $info_display_radius
+        $info_display_hsv.css({top : 115}),
+        $info_display_radius.css({top : 135})
     );
 
     init_paint_tools({
@@ -63,7 +67,7 @@ function make_tools_frame()
 
 function make_editor(width, height)
 {
-    let editor = $("<div>", {id:"editor"}).append(
+    let editor = $("<div>", {"class":"editor"}).append(
         make_picture_frame(width, height),
         make_tools_frame()
     );
