@@ -2,6 +2,6 @@
 $(document).ready(
     function()
     {
-        $("body").append(make_editor(800, 540));
+        $("body").append(make_editor(600, 600));
     }
 );

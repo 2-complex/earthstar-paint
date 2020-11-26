@@ -15,7 +15,7 @@ function make_picture_frame(width, height)
     return picture_frame;
 }
 
-function make_tools_frame()
+function make_tools_frame(picture_height)
 {
     let $hue = $("<div>", {"class": "slider-container"});
     let $saturation = $("<div>", {"class": "slider-container"});
@@ -47,10 +47,9 @@ function make_tools_frame()
             $radius
         ),
         $swatch,
-        
         $info_display_hsv.css({top : 115}),
         $info_display_radius.css({top : 135})
-    );
+    ).css({top: picture_height + 30});
 
     init_paint_tools({
          $hue : $hue,
@@ -69,7 +68,7 @@ function make_editor(width, height)
 {
     let editor = $("<div>", {"class":"editor"}).append(
         make_picture_frame(width, height),
-        make_tools_frame()
+        make_tools_frame(height)
     );
 
     return editor;
