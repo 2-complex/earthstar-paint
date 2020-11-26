@@ -20,8 +20,6 @@ body {
 }
 
 .picture-frame {
-    width: 800;
-    height: 540;
     border-width: 5px;
     border-style: solid;
 }
