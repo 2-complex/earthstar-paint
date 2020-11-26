@@ -1,0 +1,128 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a:focus,
+input:focus,
+textarea:focus,
+select:focus,
+div:focus,
+ul:focus {
+    outline: 1px solid hsla(200, 100%, 80%, 0.90);
+}
+
+button:focus {
+    box-shadow: 0 0 1pt 1pt hsla(200, 100%, 80%, 0.90);
+}
+
+.painting {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.painting {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.picture-frame {
+    position: absolute;
+    width: 800;
+    height: 540;
+    border-width: 5px;
+    border-style: solid;
+}
+
+.tools-frame {
+    position: absolute;
+    width: 500;
+    height: 160;
+    top: 600;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.slider-container {
+    float: left;
+    clear: left;
+    width: 325px;
+    margin: 3px;
+    border-width: 1px;
+    border-style: solid;
+    height: 20px;
+}
+
+.slider-container .ui-slider-range {
+    height: 20px;
+    border-right: 1px solid black;
+}
+
+.tools-frame div, canvas {
+    position: absolute;
+}
+
+.prop-label {
+    left: 10;
+    width: 30px;
+    top: 5px;
+}
+
+.tools-frame .slider-container {
+    left : 30px;
+    right : 700px;
+}
+
+#hue-labeled-slider {
+    top : 10px;
+}
+
+#saturation-labeled-slider {
+    top : 40px;
+}
+
+#lightness-labeled-slider {
+    top : 70px;
+}
+
+#radius-labeled-slider {
+    top : 120px;
+}
+
+.labeled-slider {
+    height : 30px;
+    left : 0;
+    right : 120;
+}
+
+#swatch {
+    border : 1px solid black;
+    right : 10px;
+    top : 10px;
+    width : 100px;
+    height : 100px;
+}
+
+.info-display {
+    font-size : 12;
+    font-family: geneva;
+    right : 10px;
+    width : 100px;
+}
+
+#info-display-hsv {
+    top : 115px;
+}
+
+#info-display-radius {
+    top : 135px;
+}
