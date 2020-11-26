@@ -1,12 +1,12 @@
 
 function make_picture_frame(width, height)
 {
-    let picture_frame = $("<div>", {id:"picture-frame-1", "class":"picture-frame"});
+    let picture_frame = $("<div>", {"class":"picture-frame"});
     picture_frame.css({"width":width, "height":height});
 
-    let painting = $("<canvas>", {id:"painting", "class":"painting"})
+    let painting = $("<canvas>", {"class":"painting"})
         .attr({"width":width,"height":height});
-    let overlay = $("<canvas>", {id:"painting-overlay", "class":"painting overlay"})
+    let overlay = $("<canvas>", {"class":"painting overlay"})
         .attr({"width":width,"height":height});
 
     picture_frame.append(painting, overlay);
@@ -17,31 +17,31 @@ function make_picture_frame(width, height)
 
 function make_tools_frame()
 {
-    let $hue = $("<div>", {id:"hue", "class": "slider-container"});
-    let $saturation = $("<div>", {id:"saturation", "class": "slider-container"});
-    let $lightness = $("<div>", {id:"lightness", "class": "slider-container"});
-    let $radius = $("<div>", {id:"radius", "class": "slider-container"});
-    let $info_display_hsv = $("<div>", {id:"info-display-hsv", "class":"info-display"});
-    let $info_display_radius = $("<div>", {id:"info-display-radius", "class":"info-display"});
-    let $swatch = $("<canvas>", {"class":"swatch", id:"swatch"}).attr({'width':100,'height':100});
+    let $hue = $("<div>", {"class": "slider-container"});
+    let $saturation = $("<div>", {"class": "slider-container"});
+    let $lightness = $("<div>", {"class": "slider-container"});
+    let $radius = $("<div>", {"class": "slider-container"});
+    let $info_display_hsv = $("<div>", {"class":"info-display"});
+    let $info_display_radius = $("<div>", {"class":"info-display"});
+    let $swatch = $("<canvas>", {"class":"swatch"}).attr({'width':100,'height':100});
 
-    let tools_frame = $("<div>", {id:"tools-frame-1", "class":"tools-frame"}).append(
-        $("<div>", {id:"hue-labeled-slider", "class":"labeled-slider"}).css({top : 10})
+    let tools_frame = $("<div>", {"class":"tools-frame"}).append(
+        $("<div>", {"class":"labeled-slider"}).css({top : 10})
         .append(
             $("<div>", {"class": "prop-label"}).text("H"),
             $hue
         ),
-        $("<div>", {id:"saturation-labeled-slider", "class":"labeled-slider"}).css({top : 40})
+        $("<div>", {"class":"labeled-slider"}).css({top : 40})
         .append(
             $("<div>", {"class": "prop-label"}).text("S"),
             $saturation
         ),
-        $("<div>", {id:"lightness-labeled-slider", "class":"labeled-slider"}).css({top : 70})
+        $("<div>", {"class":"labeled-slider"}).css({top : 70})
         .append(
             $("<div>", {"class": "prop-label"}).text("L"),
             $lightness
         ),
-        $("<div>", {id:"radius-labeled-slider", "class":"labeled-slider"}).css({top : 120})
+        $("<div>", {"class":"labeled-slider"}).css({top : 120})
         .append(
             $("<div>", {"class": "prop-label"}).text("R"),
             $radius
