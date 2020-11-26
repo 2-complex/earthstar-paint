@@ -26,9 +26,7 @@ function draw_brush(ctx, x, y)
         ctx.strokeStyle = ["#000", "#fff"][i % 2];
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(
-        x, y,
-        radius / 2, 2 * Math.PI * (i-0.5) / n, 2 * Math.PI * (i+0.5) / n);
+        ctx.arc(x, y, radius / 2, 2 * Math.PI * (i-0.5) / n, 2 * Math.PI * (i+0.5) / n);
         ctx.stroke();
     }
 }
@@ -38,13 +36,15 @@ function draw_brush(ctx, x, y)
 */
 function draw_stroke_segment(ctx, x0, y0, x1, y1)
 {
-    let color = hsl_string(brush_settings.h, brush_settings.s, brush_settings.l);
-    let radius = brush_settings.radius;
+    let color = hsl_string(
+        brush_settings.h,
+        brush_settings.s,
+        brush_settings.l);
 
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.strokeStyle = color;
-    ctx.lineWidth = radius;
+    ctx.lineWidth = brush_settings.radius;
     ctx.beginPath();
     ctx.moveTo(x0, y0);
     ctx.lineTo(x1, y1);
@@ -52,6 +52,13 @@ function draw_stroke_segment(ctx, x0, y0, x1, y1)
     ctx.stroke();
 }
 
+function get_point_in_element(evt, elem)
+{
+    var x = evt.pageX - elem.offset().left;
+    var y = evt.pageY - elem.offset().top;
+
+    return {x: x, y: y};
+}
 
 function init_paint_brush_events()
 {
@@ -60,20 +67,30 @@ function init_paint_brush_events()
     let last_x = 0;
     let last_y = 0;
 
+    let painting = $("#painting");
+    let painting_canvas = painting[0];
+    let painting_ctx = painting_canvas.getContext('2d');
+
+    let overlay = $("#painting-overlay");
+    let overlay_canvas = overlay[0];
+    let overlay_ctx = overlay_canvas.getContext('2d');
+
     function do_stroke_segment(evt)
     {
-        let painting_canvas = $("#painting")[0];
-        let painting_ctx = painting_canvas.getContext('2d');
-        draw_stroke_segment(painting_ctx, last_x, last_y, evt.pageX, evt.pageY);
-        last_x = evt.pageX;
-        last_y = evt.pageY;
+        let point = get_point_in_element(evt, painting);
+
+        draw_stroke_segment(painting_ctx, last_x, last_y, point.x, point.y);
+        last_x = point.x;
+        last_y = point.y;
     }
 
     frame.mousedown(
         function(evt)
         {
-            last_x = evt.pageX;
-            last_y = evt.pageY;
+            let point = get_point_in_element(evt, painting);
+
+            last_x = point.x;
+            last_y = point.y;
             dragging = true;
             do_stroke_segment(evt);
         }
@@ -101,10 +118,9 @@ function init_paint_brush_events()
                 do_stroke_segment(evt);
             }
 
-            let overlay_canvas = $("#painting-overlay")[0];
-            let overlay_ctx = overlay_canvas.getContext('2d');
             overlay_ctx.clearRect(0, 0, overlay_canvas.width, overlay_canvas.height);
-            draw_brush(overlay_ctx, evt.pageX, evt.pageY, 20);
+            let point = get_point_in_element(evt, overlay);
+            draw_brush(overlay_ctx, point.x, point.y, 20);
         }
     );
 }
@@ -129,7 +145,13 @@ function saturation_background_color_sequence(h, l)
 
 function lightness_background_color_sequence(h, s)
 {
-    let seq = [hsl_string(h, s, 0), hsl_string(h, s, 100)];
+    let seq = [];
+    let n = 8;
+    for( let i = 0; i <= n; i++ )
+    {
+        seq.push(hsl_string(h, s, i * 100/n));
+    }
+
     return seq.join(", ")
 }
 

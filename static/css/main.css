@@ -2,19 +2,6 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-a:focus,
-input:focus,
-textarea:focus,
-select:focus,
-div:focus,
-ul:focus {
-    outline: 1px solid hsla(200, 100%, 80%, 0.90);
-}
-
-button:focus {
-    box-shadow: 0 0 1pt 1pt hsla(200, 100%, 80%, 0.90);
-}
-
 .painting {
     position: absolute;
     top: 0;
@@ -25,14 +12,8 @@ button:focus {
     border-width: 1px;
 }
 
-.painting {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    border-style: solid;
-    border-width: 1px;
+.overlay {
+    cursor: none;
 }
 
 .picture-frame {
