@@ -2,7 +2,21 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.editor div, canvas, img {
+button:focus {
+    outline: 0 0 1pt 1pt white;
+}
+
+button svg {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    stroke: white;
+    fill: white;
+}
+
+.editor div, canvas, img, button {
     position: absolute;
 }
 
@@ -11,7 +25,6 @@ body {
     height: 50px;
     left: 0px;
     right: 0px;
-
     background-color : #888;
 }
 
@@ -19,7 +32,7 @@ body {
     top: 0px;
     height: 40px;
     width: 40px;
-    margin: 5px;
+    margin: 3px;
 
     border: 1px solid white;
     border-radius: 5px;
@@ -111,9 +124,122 @@ body {
     width : 100px;
 }
 
-
 .main-menu div, button {
     position: absolute;
+}
+
+.new-comic-dialog div {
+    position: absolute;
+}
+
+.new-comic-dialog .close-box {
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    background-color: #000;
+    border: 0;
+}
+
+.new-comic-dialog {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 560px;
+    height: 600px;
+    background-color: #333;
+}
+
+.new-comic-dialog label {
+    position: absolute;
+    left: 10px;
+    top: 0px;
+    width: 90px;
+    height: 40px;
+    font-size: 24;
+    color: #bbb;
+}
+
+.new-comic-dialog .layout-name {
+    left: 200px;
+    top: 0px;
+    height: 40px;
+    font-size: 24;
+    color: #bbb;
+}
+
+.new-comic-dialog .title-input {
+    position: absolute;
+    left: 100px;
+    right: 0px;
+    border: 0;
+
+    color: #bbb;
+    background-color: #000;
+    font-size: 30;
+    height: 40px;
+    width: 400;
+}
+
+.new-comic-dialog .layout-preview {
+    background-color: #000;
+    top: 150px;
+    left: 20px;
+    right: 20px;
+    bottom: 80px;
+}
+
+.new-comic-dialog .layout-thumbnail-box {
+    background-color: #111;
+    border: 1px solid white;
+}
+
+.new-comic-dialog .layout-preview-element {
+    border: 1px solid gray;
+}
+
+.new-comic-dialog .layout-preview-left {
+    left: 5px;
+    width: 100px;
+    top: 0px;
+    bottom: 0px;
+}
+
+.new-comic-dialog .layout-preview-right {
+    right: 5px;
+    width: 100px;
+    top: 0px;
+    bottom: 0px;
+}
+
+.new-comic-dialog .input-container {
+    left: 0px;
+    right: 0px;
+    height: 50px;
+}
+
+.new-comic-dialog .layout-button-container {
+    left: 100px;
+    width: 85;
+    top: 0px;
+    height: 40px;
+}
+
+.new-comic-dialog .layout-button-container button {
+    width : 40px;
+    height : 40px;
+    background-color : black;
+    border : 0;
+}
+
+.new-comic-dialog .confirm-button {
+    bottom: 10px;
+    right: 10px;
+    height: 40px;
+    width: 150px;
+    background-color : #000;
+    font-size: 24;
+    color: #bbb;
 }
 
 .top-bar {
