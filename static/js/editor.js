@@ -1,4 +1,25 @@
 
+function make_menu_bar()
+{
+    let $menu_bar = $("<div>", {"class" : "menu-bar"});
+    let $brush_button = $("<button>").append(
+        get_icon_svg("brush", "button-icon", {})
+    ).css({left: 5});
+
+    let $save_button = $("<button>").append(
+        get_icon_svg("save", "button-icon", {})
+    ).css({left: 355});
+
+    let $close_button = $("<button>").append(
+        get_icon_svg("close", "button-icon", {})
+    ).css({left: 410});
+
+    return $menu_bar.append(
+        $brush_button,
+        $save_button,
+        $close_button);
+}
+
 function make_picture_frame(panel, $img)
 {
     let width = panel.img_size[0];
@@ -73,7 +94,8 @@ function make_tools_frame(picture_height)
 function make_editor(panel, $img)
 {
     let editor = $("<div>", {"class":"editor"}).append(
-        make_picture_frame(panel, $img),
+        make_menu_bar(),
+        make_picture_frame(panel, $img).css({top:50}),
         make_tools_frame(panel.img_size[1])
     );
 

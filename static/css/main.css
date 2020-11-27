@@ -6,6 +6,26 @@ body {
     position: absolute;
 }
 
+.editor .menu-bar {
+    top: 0px;
+    height: 50px;
+    left: 0px;
+    right: 0px;
+
+    background-color : #888;
+}
+
+.editor .menu-bar button {
+    top: 0px;
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color : #888;
+}
+
 .painting {
     top: 100;
     left: 100;

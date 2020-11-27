@@ -2,6 +2,8 @@
 $(document).ready(
     function()
     {
+
+/*/
         $("body").append(make_editor(
             {
                 rect: [10, 10, 400, 400],
@@ -9,8 +11,7 @@ $(document).ready(
                 img_src: "https://i2.wp.com/ceklog.kindel.com/wp-content/uploads/2013/02/firefox_2018-07-10_07-50-11.png"
             }
         ));
-
-/*
+/*/
 
         $("body").append(make_main_menu([
             {
@@ -49,6 +50,6 @@ $(document).ready(
                 panels: [],
             },
         ]));
-*/
+//*/
     }
 );
