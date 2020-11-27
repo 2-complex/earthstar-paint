@@ -2,26 +2,38 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.editor div, canvas {
+.editor div, canvas, img {
     position: absolute;
 }
 
 .painting {
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+    top: 100;
+    left: 100;
     border-style: solid;
     border-width: 1px;
 }
 
 .overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-style: solid;
+    border-width: 1px;
     cursor: none;
 }
 
 .picture-frame {
-    border-width: 5px;
+    border-width: 1px;
     border-style: solid;
+
+    background: repeating-linear-gradient(
+        45deg,
+        #fff,
+        #fff 10px,
+        #eee 10px,
+        #eee 20px
+    );
 }
 
 .tools-frame {
@@ -29,6 +41,7 @@ body {
     height: 160;
     border-width: 1px;
     border-style: solid;
+    background-color: #fff;
 }
 
 .slider-container {
@@ -76,4 +89,122 @@ body {
     font-family: geneva;
     right : 10px;
     width : 100px;
+}
+
+
+.main-menu div, button {
+    position: absolute;
+}
+
+.top-bar {
+    overflow: hidden;
+    top : 0px;
+    height : 60px;
+    left: 0px;
+    right: 0px;
+    background-color : #111;
+}
+
+.title {
+    white-space: nowrap;
+}
+
+.top-bar .title {
+    margin : 12px;
+    color : #777;
+    font-size : 36;
+    font-weight: 900;
+}
+
+.content {
+    top : 60px;
+    bottom : 0px;
+    left: 0px;
+    right: 0px;
+    background-color : #333;
+    color : #999;
+}
+
+.titles-list {
+    top : 3px;
+    bottom : 3px;
+    left : 3px;
+    width: 200px;
+    background-color : #111;
+}
+
+.titles-list .tool-bar .add-button {
+    top: 3px;
+    bottom: 3px;
+    width: 30px;
+    right: 3px;
+    background-color: #000;
+    border: 1px solid #777;
+    border-radius : 10px;
+    font-size : 15;
+    font-weight: 900;
+    color: #777
+}
+
+.titles-list .tool-bar {
+    top : 0px;
+    height : 30px;
+    left : 0px;
+    right : 0px;
+    border-bottom: 1px solid #333;
+    background-color : #000;
+}
+
+.titles-list .title-list-items {
+    top: 33px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.titles-list .title-list-items .item {
+    cursor: pointer;
+    position: static;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 5px;
+}
+
+.content .comic-view {
+    overflow : scroll;
+    top: 0px;
+    left: 206px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.content .comic-container {
+    top: 3px;
+    left: 0px;
+    background-color: black;
+}
+
+.content .comic-container .comic {
+    top: 30px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: black;
+}
+
+.content .comic .title {
+    top : 0px;
+    bottom: 100px;
+    left: 0px;
+    right: 0px;
+}
+
+body .screendoor {
+    position: absolute;
+    left:0;
+    top:0;
+    right: 0;
+    bottom: 0;
+    background-color: gray;
+    opacity : 0.5;
 }

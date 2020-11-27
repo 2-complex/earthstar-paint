@@ -1,17 +1,23 @@
 
-function make_picture_frame(width, height)
+function make_picture_frame(panel, $img)
 {
+    let width = panel.img_size[0];
+    let height = panel.img_size[1];
+
     let picture_frame = $("<div>", {"class":"picture-frame"});
-    picture_frame.css({"width":width, "height":height});
+    picture_frame.css({"width":width+200, "height":height+200});
 
     let painting = $("<canvas>", {"class":"painting"})
         .attr({"width":width,"height":height});
+
     let overlay = $("<canvas>", {"class":"painting overlay"})
-        .attr({"width":width,"height":height});
+        .attr({"width":width+200,"height":height+200});
 
     picture_frame.append(painting, overlay);
 
-    init_paint_brush_events(picture_frame, painting, overlay);
+    console.log($img)
+
+    init_paint_brush_events(picture_frame, painting, overlay, panel, $img);
     return picture_frame;
 }
 
@@ -49,7 +55,7 @@ function make_tools_frame(picture_height)
         $swatch,
         $info_display_hsv.css({top : 115}),
         $info_display_radius.css({top : 135})
-    ).css({top: picture_height + 30});
+    ).css({top: picture_height + 210});
 
     init_paint_tools({
          $hue : $hue,
@@ -64,11 +70,11 @@ function make_tools_frame(picture_height)
     return tools_frame;
 }
 
-function make_editor(width, height)
+function make_editor(panel, $img)
 {
     let editor = $("<div>", {"class":"editor"}).append(
-        make_picture_frame(width, height),
-        make_tools_frame(height)
+        make_picture_frame(panel, $img),
+        make_tools_frame(panel.img_size[1])
     );
 
     return editor;
@@ -149,7 +155,7 @@ function get_point_in_element(evt, elem)
     return {x: x, y: y};
 }
 
-function init_paint_brush_events(frame, painting, overlay)
+function init_paint_brush_events(frame, painting, overlay, panel, $img)
 {
     let dragging = false;
     let last_x = 0;
@@ -160,6 +166,16 @@ function init_paint_brush_events(frame, painting, overlay)
 
     let overlay_canvas = overlay[0];
     let overlay_ctx = overlay_canvas.getContext('2d');
+
+    if( $img )
+    {
+        painting_ctx.drawImage($img[0], 0, 0);
+    }
+    else
+    {
+        painting_ctx.fillStyle = "white";
+        painting_ctx.fillRect(0, 0, panel.img_size[0], panel.img_size[1]);
+    }
 
     function do_stroke_segment(evt)
     {
