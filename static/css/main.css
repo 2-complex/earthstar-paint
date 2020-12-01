@@ -16,6 +16,22 @@ button svg {
     fill: white;
 }
 
+body .main-menu-layer {
+    position: absolute;
+    top: 0px;
+    height: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+body .screendoor-layer {
+    position: absolute;
+    top: 0px;
+    height: 0px;
+    left: 0px;
+    right: 0px;
+}
+
 .editor div, canvas, img, button {
     position: absolute;
 }

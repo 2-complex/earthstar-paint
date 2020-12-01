@@ -9,6 +9,8 @@
   "author": "Papaya Jam Studios",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
     "earthstar": "^5.7.4",
     "express": "^4.17.1"
   }

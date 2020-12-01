@@ -45,7 +45,7 @@ var templates_funcs = [
                     img_size: [600, 600],
                 },
                 {
-                    rect: [10, 420, 800, 400],
+                    rect: [10, 420, 400, 400],
                     img_size: [1200, 600],
                 },
                 {
@@ -79,7 +79,7 @@ var templates_funcs = [
                     img_size: [600, 600],
                 },
                 {
-                    rect: [420, 10, 400, 800],
+                    rect: [420, 10, 400, 400],
                     img_size: [1200, 600],
                 },
                 {

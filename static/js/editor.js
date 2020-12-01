@@ -1,5 +1,5 @@
 
-function make_menu_bar()
+function make_menu_bar(callbacks, $img, painting_canvas)
 {
     let $menu_bar = $("<div>", {"class" : "menu-bar"});
     let $brush_button = $("<button>").append(
@@ -14,6 +14,20 @@ function make_menu_bar()
         get_icon_svg("close", "button-icon", {})
     ).css({left: 410});
 
+    $close_button.click(
+        function(evt)
+        {
+            callbacks.close_editor();
+        }
+    )
+
+    $save_button.click(
+        function(evt)
+        {
+            callbacks.save_image($img, painting_canvas);
+        }
+    )
+
     return $menu_bar.append(
         $brush_button,
         $save_button,
@@ -25,8 +39,8 @@ function make_picture_frame(panel, $img)
     let width = panel.img_size[0];
     let height = panel.img_size[1];
 
-    let picture_frame = $("<div>", {"class":"picture-frame"});
-    picture_frame.css({"width":width+200, "height":height+200});
+    let $picture_frame = $("<div>", {"class":"picture-frame"});
+    $picture_frame.css({"width":width+200, "height":height+200});
 
     let painting = $("<canvas>", {"class":"painting"})
         .attr({"width":width,"height":height});
@@ -34,12 +48,14 @@ function make_picture_frame(panel, $img)
     let overlay = $("<canvas>", {"class":"painting overlay"})
         .attr({"width":width+200,"height":height+200});
 
-    picture_frame.append(painting, overlay);
+    $picture_frame.append(painting, overlay);
 
-    console.log($img)
+    let painting_canvas = init_paint_brush_events($picture_frame, painting, overlay, panel, $img);
 
-    init_paint_brush_events(picture_frame, painting, overlay, panel, $img);
-    return picture_frame;
+    return {
+        $picture_frame : $picture_frame,
+        painting_canvas : painting_canvas,
+    }
 }
 
 function make_tools_frame(picture_height)
@@ -91,11 +107,13 @@ function make_tools_frame(picture_height)
     return tools_frame;
 }
 
-function make_editor(panel, $img)
+function make_editor(panel, $img, callbacks)
 {
+    let picture_frame_info = make_picture_frame(panel, $img)
+
     let editor = $("<div>", {"class":"editor"}).append(
-        make_menu_bar(),
-        make_picture_frame(panel, $img).css({top:50}),
+        make_menu_bar(callbacks, $img, picture_frame_info.painting_canvas),
+        picture_frame_info.$picture_frame.css({top:50}),
         make_tools_frame(panel.img_size[1])
     );
 
@@ -195,7 +213,7 @@ function init_paint_brush_events(frame, painting, overlay, panel, $img)
     }
     else
     {
-        painting_ctx.fillStyle = "white";
+        painting_ctx.fillStyle = "#fff";
         painting_ctx.fillRect(0, 0, panel.img_size[0], panel.img_size[1]);
     }
 
@@ -247,6 +265,8 @@ function init_paint_brush_events(frame, painting, overlay, panel, $img)
             draw_brush(overlay_ctx, point.x, point.y, 20);
         }
     );
+
+    return painting_canvas;
 }
 
 function hue_background_color_sequence(s, l)
