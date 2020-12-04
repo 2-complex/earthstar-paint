@@ -26,6 +26,19 @@ app.get('/css/*.css', (req, res) => {
     res.sendFile('./static' + req.path, { root: __dirname });
 });
 
+app.get('/files/*', (req, res) => {
+    let shadaurl = 'https://sha-da.com' + req.url;
+    axios({
+        method: 'get',
+        url: shadaurl
+    }).then((response) => {
+        res.setHeader('content-type', 'image/png');
+        res.send(response.file);
+    }, (error) => {
+        res.status(500).send(error.message);
+    });
+});
+
 app.post('/upload-base64', (req, res) => {
     axios({
         method: 'post',

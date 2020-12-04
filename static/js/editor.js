@@ -1,5 +1,5 @@
 
-function make_menu_bar(callbacks, $img, painting_canvas)
+function make_menu_bar(callbacks, $img, painting_canvas, panel)
 {
     let $menu_bar = $("<div>", {"class" : "menu-bar"});
     let $brush_button = $("<button>").append(
@@ -24,7 +24,7 @@ function make_menu_bar(callbacks, $img, painting_canvas)
     $save_button.click(
         function(evt)
         {
-            callbacks.save_image($img, painting_canvas);
+            callbacks.save_image($img, painting_canvas, panel);
         }
     )
 
@@ -112,7 +112,7 @@ function make_editor(panel, $img, callbacks)
     let picture_frame_info = make_picture_frame(panel, $img)
 
     let editor = $("<div>", {"class":"editor"}).append(
-        make_menu_bar(callbacks, $img, picture_frame_info.painting_canvas),
+        make_menu_bar(callbacks, $img, picture_frame_info.painting_canvas, panel),
         picture_frame_info.$picture_frame.css({top:50}),
         make_tools_frame(panel.img_size[1])
     );
@@ -207,7 +207,7 @@ function init_paint_brush_events(frame, painting, overlay, panel, $img)
     let overlay_canvas = overlay[0];
     let overlay_ctx = overlay_canvas.getContext('2d');
 
-    if( $img )
+    if( panel.img_src )
     {
         painting_ctx.drawImage($img[0], 0, 0);
     }

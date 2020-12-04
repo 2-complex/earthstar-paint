@@ -142,7 +142,7 @@ function make_comic(comic_info, callbacks)
     let $comic_container = $("<div>", {"class" : "comic-container"}).append(
         $("<div>", {"class" : "title"}).text(comic_info.title),
         $comic,
-    ).css({width:comic_info.size[0], height:(30 + comic_info.size[1])});
+    ).css({width:comic_info.size[0], height:(35 + comic_info.size[1])});
 
     comic_info.panels.map(
         function(panel)
@@ -237,7 +237,7 @@ function make_app()
             close_editor : function() {
                 $("#screendoor-layer").empty();
             },
-            save_image : function($img, canvas) {
+            save_image : function($img, canvas, panel) {
                 let data_url = canvas.toDataURL();
                 $img[0].src = data_url;
 
@@ -248,13 +248,14 @@ function make_app()
                 }) ).then(
                     function(result)
                     {
-                        console.log(result)
-                        $img[0].src = "https://sha-da.com/files/" + result.hashcode;
+                        let img_src = "/files/" + result.hashcode;
+                        $img[0].src = img_src;
+                        panel.img_src = img_src;
                     }
                 ).fail(
                     function()
                     {
-                        console.log("Error")
+                        console.log("Saving to server error")
                     }
                 );
             },
