@@ -68,7 +68,7 @@ function make_tools_frame(picture_height)
     let $info_display_radius = $("<div>", {"class":"info-display"});
     let $swatch = $("<canvas>", {"class":"swatch"}).attr({'width':100,'height':100});
 
-    let tools_frame = $("<div>", {"class":"tools-frame"}).append(
+    let $tools_frame = $("<div>", {"class":"tools-frame"}).append(
         $("<div>", {"class":"labeled-slider"}).css({top : 10})
         .append(
             $("<div>", {"class": "prop-label"}).text("H"),
@@ -104,7 +104,9 @@ function make_tools_frame(picture_height)
          $swatch : $swatch,
     });
 
-    return tools_frame;
+    $tools_frame.draggable();
+
+    return $tools_frame;
 }
 
 function make_editor(panel, $img, callbacks)
