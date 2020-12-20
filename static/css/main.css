@@ -56,8 +56,6 @@ body .screendoor-layer {
 }
 
 .painting {
-    top: 100;
-    left: 100;
     border-style: solid;
     border-width: 1px;
 }
@@ -73,9 +71,12 @@ body .screendoor-layer {
 }
 
 .picture-frame {
-    border-width: 1px;
-    border-style: solid;
+    border: 0;
+    background-color: #eee;
+}
 
+.picture-background {
+    border: 1px solid black;
     background: repeating-linear-gradient(
         45deg,
         #fff,

@@ -2,9 +2,6 @@
 function make_menu_bar(callbacks, $img, painting_canvas, panel)
 {
     let $menu_bar = $("<div>", {"class" : "menu-bar"});
-    let $brush_button = $("<button>").append(
-        get_icon_svg("brush", "button-icon", {})
-    ).css({left: 5});
 
     let $save_button = $("<button>").append(
         get_icon_svg("save", "button-icon", {})
@@ -29,7 +26,6 @@ function make_menu_bar(callbacks, $img, painting_canvas, panel)
     )
 
     return $menu_bar.append(
-        $brush_button,
         $save_button,
         $close_button);
 }
@@ -40,20 +36,28 @@ function make_picture_frame(panel, $img)
     let height = panel.img_size[1];
 
     let $picture_frame = $("<div>", {"class":"picture-frame"});
-    $picture_frame.css({"width":width+200, "height":height+200});
+    $picture_frame.css({"width":width+250, "height":height+250});
+
+    let $picture_background = $("<div>", {"class":"picture-background"});
+    $picture_background.css({top:25, left:25, "width":width+200, "height":height+200});
 
     let painting = $("<canvas>", {"class":"painting"})
-        .attr({"width":width,"height":height});
+        .css({top:100, left:100})
+        .attr({width:width, height:height});
 
     let overlay = $("<canvas>", {"class":"painting overlay"})
         .attr({"width":width+200,"height":height+200});
 
-    $picture_frame.append(painting, overlay);
+    $picture_background.append(painting, overlay);
+    $picture_frame.append($picture_background)
 
-    let painting_canvas = init_paint_brush_events($picture_frame, painting, overlay, panel, $img);
+    $picture_frame.draggable();
+
+    let painting_canvas = init_paint_brush_events($picture_background, painting, overlay, panel, $img);
 
     return {
         $picture_frame : $picture_frame,
+        $picture_background : $picture_background,
         painting_canvas : painting_canvas,
     }
 }
