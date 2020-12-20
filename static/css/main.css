@@ -32,6 +32,15 @@ body .screendoor-layer {
     right: 0px;
 }
 
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .editor div, canvas, img, button {
     position: absolute;
 }
@@ -73,6 +82,7 @@ body .screendoor-layer {
 .picture-frame {
     border: 0;
     background-color: #eee;
+    cursor: move;
 }
 
 .picture-background {
@@ -92,6 +102,7 @@ body .screendoor-layer {
     border-width: 1px;
     border-style: solid;
     background-color: #fff;
+    cursor: move;
 }
 
 .slider-container {
@@ -102,6 +113,7 @@ body .screendoor-layer {
     border-width: 1px;
     border-style: solid;
     height: 20px;
+    cursor: pointer;
 }
 
 .slider-container .ui-slider-range {

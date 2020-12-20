@@ -51,9 +51,9 @@ function make_picture_frame(panel, $img)
     $picture_background.append(painting, overlay);
     $picture_frame.append($picture_background)
 
-    $picture_frame.draggable();
-
     let painting_canvas = init_paint_brush_events($picture_background, painting, overlay, panel, $img);
+
+    $picture_frame.draggable();
 
     return {
         $picture_frame : $picture_frame,
@@ -72,7 +72,7 @@ function make_tools_frame(picture_height)
     let $info_display_radius = $("<div>", {"class":"info-display"});
     let $swatch = $("<canvas>", {"class":"swatch"}).attr({'width':100,'height':100});
 
-    let $tools_frame = $("<div>", {"class":"tools-frame"}).append(
+    let $tools_frame = $("<div>", {"class":"tools-frame noselect"}).append(
         $("<div>", {"class":"labeled-slider"}).css({top : 10})
         .append(
             $("<div>", {"class": "prop-label"}).text("H"),
@@ -241,6 +241,11 @@ function init_paint_brush_events(frame, painting, overlay, panel, $img)
             last_y = point.y;
             dragging = true;
             do_stroke_segment(evt);
+
+            // This stops painting strokes from also
+            // dragging the draggable parent:
+            evt.preventDefault();
+            evt.stopPropagation();
         }
     )
 
