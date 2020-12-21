@@ -53,7 +53,8 @@ function make_picture_frame(panel, $img)
 
     let painting_canvas = init_paint_brush_events($picture_background, painting, overlay, panel, $img);
 
-    $picture_frame.draggable();
+    $picture_frame.css({top:100, left:100})
+    absolute_draggable($picture_frame);
 
     return {
         $picture_frame : $picture_frame,
@@ -71,6 +72,12 @@ function make_tools_frame(picture_height)
     let $info_display_hsv = $("<div>", {"class":"info-display"});
     let $info_display_radius = $("<div>", {"class":"info-display"});
     let $swatch = $("<canvas>", {"class":"swatch"}).attr({'width':100,'height':100});
+
+    $hue.mousedown(stop_prop);
+    $saturation.mousedown(stop_prop);
+    $lightness.mousedown(stop_prop);
+    $radius.mousedown(stop_prop);
+
 
     let $tools_frame = $("<div>", {"class":"tools-frame noselect"}).append(
         $("<div>", {"class":"labeled-slider"}).css({top : 10})
@@ -96,7 +103,7 @@ function make_tools_frame(picture_height)
         $swatch,
         $info_display_hsv.css({top : 115}),
         $info_display_radius.css({top : 135})
-    ).css({top: picture_height + 210});
+    ).css({top: 100});
 
     init_paint_tools({
          $hue : $hue,
@@ -108,7 +115,7 @@ function make_tools_frame(picture_height)
          $swatch : $swatch,
     });
 
-    $tools_frame.draggable();
+    absolute_draggable($tools_frame);
 
     return $tools_frame;
 }

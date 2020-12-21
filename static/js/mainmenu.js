@@ -1,4 +1,3 @@
-
 function make_thumbnail_layout(template)
 {
     let k = 4;
@@ -100,13 +99,22 @@ function make_new_comic_dialog(templates, callbacks)
         callbacks.close_dialog(index);
     })
 
-    return $("<div>", {"class" : "new-comic-dialog"}).append(
+    let $new_comic_dialog = $("<div>", {"class" : "new-comic-dialog noselect"}).append(
         $title_input_container,
         $layout_input_container,
         $layout_preview,
         $confirm_button,
         $close_box,
     );
+
+    $new_comic_dialog.css({
+        top: 100,
+        left: 100
+    });
+
+    absolute_draggable($new_comic_dialog);
+
+    return $new_comic_dialog;
 }
 
 function repeat_text(text, n)
