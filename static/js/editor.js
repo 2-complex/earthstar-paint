@@ -30,7 +30,7 @@ function make_menu_bar(callbacks, $img, painting_canvas, panel)
         $close_button);
 }
 
-function make_picture_frame(panel, $img)
+function make_picture_frame(panel, $img, sync_to_hsl)
 {
     let width = panel.img_size[0];
     let height = panel.img_size[1];
@@ -51,7 +51,7 @@ function make_picture_frame(panel, $img)
     $picture_background.append(painting, overlay);
     $picture_frame.append($picture_background)
 
-    let painting_canvas = init_paint_brush_events($picture_background, painting, overlay, panel, $img);
+    let painting_canvas = init_paint_brush_events($picture_background, painting, overlay, panel, $img, sync_to_hsl);
 
     $picture_frame.css({top:100, left:100})
     absolute_draggable($picture_frame);
@@ -63,7 +63,7 @@ function make_picture_frame(panel, $img)
     }
 }
 
-function make_tools_frame(picture_height)
+function make_tools_frame()
 {
     let $hue = $("<div>", {"class": "slider-container"});
     let $saturation = $("<div>", {"class": "slider-container"});
@@ -105,7 +105,7 @@ function make_tools_frame(picture_height)
         $info_display_radius.css({top : 135})
     ).css({top: 100});
 
-    init_paint_tools({
+    let sync_to_hsl = init_paint_tools({
          $hue : $hue,
          $saturation : $saturation,
          $lightness : $lightness,
@@ -117,17 +117,21 @@ function make_tools_frame(picture_height)
 
     absolute_draggable($tools_frame);
 
-    return $tools_frame;
+    return {
+        $frame : $tools_frame,
+        sync_to_hsl: sync_to_hsl
+    };
 }
 
 function make_editor(panel, $img, callbacks)
 {
-    let picture_frame_info = make_picture_frame(panel, $img)
+    let tools_frame_info = make_tools_frame();
+    let picture_frame_info = make_picture_frame(panel, $img, tools_frame_info.sync_to_hsl);
 
     let editor = $("<div>", {"class":"editor"}).append(
         make_menu_bar(callbacks, $img, picture_frame_info.painting_canvas, panel),
         picture_frame_info.$picture_frame.css({top:50}),
-        make_tools_frame(panel.img_size[1])
+        tools_frame_info.$frame
     );
 
     return editor;
@@ -138,6 +142,51 @@ var brush_settings = {
     s: 100,
     l: 50,
     radius: 5
+}
+
+function rgb_to_hsl(r, g, b)
+{
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    var max = Math.max(r, g, b);
+    var min = Math.min(r, g, b);
+    var h;
+    var s;
+    var l = (max + min) / 2;
+
+    if (max == min)
+    {
+        h = s = 0; // achromatic
+    }
+    else
+    {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+        switch (max)
+        {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+
+        h /= 6;
+    }
+
+    return [h * 360, s * 100, l * 100];
+}
+
+function set_brush_settings_to_rgb(r, g, b)
+{
+    let color = rgb_to_hsl(r,g,b);
+
+    brush_settings.h = color[0];
+    brush_settings.s = color[1];
+    brush_settings.l = color[2];
+
+    return color;
 }
 
 function hsl_string(h, s, l)
@@ -208,7 +257,7 @@ function get_point_in_element(evt, elem)
     return {x: x, y: y};
 }
 
-function init_paint_brush_events(frame, painting, overlay, panel, $img)
+function init_paint_brush_events(frame, painting, overlay, panel, $img, sync_to_hsl)
 {
     let dragging = false;
     let last_x = 0;
@@ -239,20 +288,45 @@ function init_paint_brush_events(frame, painting, overlay, panel, $img)
         last_y = point.y;
     }
 
+    function do_eye_dropper(point)
+    {
+        var pix = painting_ctx.getImageData(point.x, point.y, 1, 1).data;
+
+        // Loop over each pixel and invert the color.
+
+        if( pix.length >= 3 )
+        for (var i = 0, n = pix.length; i < n; i += 4)
+        {
+            let color = set_brush_settings_to_rgb(pix[0], pix[1], pix[2]);
+            sync_to_hsl(color[0], color[1], color[2]);
+        }
+    }
+
     frame.mousedown(
         function(evt)
         {
-            let point = get_point_in_element(evt, painting);
+            if( evt.which == 1 )
+            {
+                let point = get_point_in_element(evt, painting);
 
-            last_x = point.x;
-            last_y = point.y;
-            dragging = true;
-            do_stroke_segment(evt);
+                last_x = point.x;
+                last_y = point.y;
+                dragging = true;
+                do_stroke_segment(evt);
 
-            // This stops painting strokes from also
-            // dragging the draggable parent:
-            evt.preventDefault();
-            evt.stopPropagation();
+                // This stops painting strokes from also
+                // dragging the draggable parent:
+                evt.preventDefault();
+                evt.stopPropagation();
+            }
+            else
+            {
+                let point = get_point_in_element(evt, painting);
+                do_eye_dropper(point);
+
+                evt.preventDefault();
+                evt.stopPropagation();
+            }
         }
     )
 
@@ -319,6 +393,13 @@ function lightness_background_color_sequence(h, s)
 
 function init_paint_tools(tool_info)
 {
+    function sync_to_hsl(h, s, l)
+    {
+        tool_info.$hue.slider( "value", h );
+        tool_info.$saturation.slider( "value", s );
+        tool_info.$lightness.slider( "value", l );
+    }
+
     function refresh_swatch()
     {
         var h = tool_info.$hue.slider( "value" );
@@ -371,4 +452,6 @@ function init_paint_tools(tool_info)
     tool_info.$saturation.slider( "value", s );
     tool_info.$lightness.slider( "value", l );
     tool_info.$radius.slider( "value", radius );
+
+    return sync_to_hsl;
 }

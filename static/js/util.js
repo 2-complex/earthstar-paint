@@ -23,7 +23,6 @@ function absolute_draggable($item)
             $(document).on( "mousemove",
                 function(evt)
                 {
-                    console.log("getting here")
                     $item.css({
                         "left": evt.pageX - offset_x,
                         "top": evt.pageY - offset_y,

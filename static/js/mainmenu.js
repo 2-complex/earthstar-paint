@@ -34,7 +34,7 @@ function make_new_comic_dialog(templates, callbacks)
 
 
     let $right_button = $("<button>").append(
-            get_icon_svg("left", "layout-left-svg", {})
+        get_icon_svg("left", "layout-left-svg", {})
     );
 
     let $left_button = $("<button>").append(
@@ -147,7 +147,7 @@ function make_comic(comic_info, callbacks)
 {
     let $comic = $("<div>", {"class" : "comic"});
 
-    let $comic_container = $("<div>", {"class" : "comic-container"}).append(
+    let $comic_container = $("<div>", {"class" : "comic-container noselect"}).append(
         $("<div>", {"class" : "title"}).text(comic_info.title),
         $comic,
     ).css({width:comic_info.size[0], height:(35 + comic_info.size[1])});
