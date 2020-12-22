@@ -216,9 +216,14 @@ function make_main_menu(comic_templates, callbacks)
     $list_items = $("<div>", {"class":"title-list-items"});
     $view = $("<div>", {"class":"comic-view"});
 
+    let $close_box = $("<button>", {"class" : "close-box"}).append(
+        get_icon_svg("close", "close-box-svg", {})
+    );
+
     let $main_menu = $("<div>", {"class":"main-menu"}).append(
         $("<div>", {"class":"top-bar"}).append(
-            $("<div>", {"class" : "title"}).text(repeat_text("JAM COMIC", 25))
+            $("<div>", {"class" : "title"}).text(repeat_text("JAM COMIC", 25)),
+            $close_box
         ),
         $("<div>", {"class":"content"}).append(
             $("<div>", {"class":"titles-list noselect"}).append(
@@ -234,10 +239,15 @@ function make_main_menu(comic_templates, callbacks)
         present_new_comic_dialog(comic_templates, callbacks);
     });
 
+    $close_box.mouseup(function(evt)
+    {
+        callbacks.close_app();
+    });
+
     return $main_menu;
 }
 
-function make_app()
+function make_app(callbacks)
 {
     $("#main-menu-layer").append(make_main_menu(
         get_template_list(),
@@ -280,6 +290,10 @@ function make_app()
                     template.title = title
                     model_add_comic(template)
                 }
+            },
+            close_app : function()
+            {
+                callbacks.close_app();
             }
         }
     ));

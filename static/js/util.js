@@ -3,7 +3,6 @@ function stop_prop(evt)
 {
     // This stops painting strokes from also
     // dragging the draggable parent:
-    evt.preventDefault();
     evt.stopPropagation();
 };
 

@@ -162,7 +162,20 @@ body .screendoor-layer {
     position: absolute;
 }
 
+.dialog div {
+    position: absolute;
+}
+
 .new-comic-dialog .close-box {
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    background-color: #000;
+    border: 0;
+}
+
+.close-box {
     top: 0px;
     right: 0px;
     width: 40px;
@@ -179,6 +192,20 @@ body .screendoor-layer {
     cursor: move;
 }
 
+.login-dialog {
+    position: absolute;
+    width: 560px;
+    height: 450px;
+    background-color: #333;
+    cursor: move;
+}
+
+.dialog {
+    position: absolute;
+    background-color: #333;
+    cursor: move;
+}
+
 .new-comic-dialog label {
     position: absolute;
     left: 10px;
@@ -186,6 +213,26 @@ body .screendoor-layer {
     width: 90px;
     height: 40px;
     font-size: 24;
+    color: #bbb;
+}
+
+.dialog label {
+    position: absolute;
+    left: 10px;
+    top: 0px;
+    width: 90px;
+    height: 40px;
+    font-size: 24;
+    color: #bbb;
+}
+
+.dialog .explanation {
+    position: absolute;
+    left: 120px;
+    top: 0px;
+    width: 350px;
+    height: 40px;
+    font-size: 14;
     color: #bbb;
 }
 
@@ -208,6 +255,47 @@ body .screendoor-layer {
     font-size: 30;
     height: 40px;
     width: 400;
+}
+
+.login-dialog .name-input {
+    position: absolute;
+    left: 100px;
+    right: 0px;
+    border: 0;
+
+    color: #bbb;
+    background-color: #000;
+    font-size: 30;
+    height: 40px;
+    width: 400;
+}
+
+.login-dialog .address-input {
+    position: absolute;
+    left: 150px;
+    right: 0px;
+    border: 0;
+
+    color: #bbb;
+    background-color: #000;
+    font-size: 10;
+    font-family: monospace;
+    height: 30px;
+    width: 350;
+}
+
+.login-dialog .secret-input {
+    position: absolute;
+    left: 150px;
+    right: 0px;
+    border: 0;
+
+    color: #bbb;
+    background-color: #000;
+    font-size: 10;
+    font-family: monospace;
+    height: 30px;
+    width: 350;
 }
 
 .new-comic-dialog .layout-preview {
@@ -269,12 +357,34 @@ body .screendoor-layer {
     background-color : #000;
     font-size: 24;
     color: #bbb;
+    border: 0 solid black;
+}
+
+.dialog .confirm-button {
+    bottom: 10px;
+    right: 10px;
+    height: 40px;
+    background-color : #000;
+    font-size: 24;
+    color: #bbb;
+    border: 0 solid black;
+}
+
+.dialog .confirm-button {
+    bottom: 10px;
+    width: 300px; 
+    right: 10px;
+    height: 80px;
+    background-color : #000;
+    font-size: 24;
+    color: #bbb;
+    border: 0 solid black;
 }
 
 .top-bar {
     overflow: hidden;
     top : 0px;
-    height : 60px;
+    height : 40px;
     left: 0px;
     right: 0px;
     background-color : #111;
@@ -285,14 +395,14 @@ body .screendoor-layer {
 }
 
 .top-bar .title {
-    margin : 12px;
+    margin : 7px;
     color : #777;
-    font-size : 36;
+    font-size : 24;
     font-weight: 900;
 }
 
 .content {
-    top : 60px;
+    top : 40px;
     bottom : 0px;
     left: 0px;
     right: 0px;

@@ -12,7 +12,7 @@ app.use(
   })
 )
 
-app.use(body_parser.json())
+app.use(body_parser.json({limit: '100mb'}))
 
 app.get('/', (req, res) => {
     res.sendFile('./static/html/main.html', { root: __dirname });
