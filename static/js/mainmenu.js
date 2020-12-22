@@ -221,7 +221,7 @@ function make_main_menu(comic_templates, callbacks)
             $("<div>", {"class" : "title"}).text(repeat_text("JAM COMIC", 25))
         ),
         $("<div>", {"class":"content"}).append(
-            $("<div>", {"class":"titles-list"}).append(
+            $("<div>", {"class":"titles-list noselect"}).append(
                 $("<div>", {"class":"tool-bar"}).append($add_button),
                 $list_items
             ),
