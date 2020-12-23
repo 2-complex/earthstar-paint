@@ -256,9 +256,8 @@ function get_point_in_element(evt, elem)
     return {x: x, y: y};
 }
 
-function init_paint_brush_events(frame, painting, overlay, panel, $img, sync_to_hsl)
+function init_paint_brush_events($frame, painting, overlay, panel, $img, sync_to_hsl)
 {
-    let dragging = false;
     let last_x = 0;
     let last_y = 0;
 
@@ -268,14 +267,26 @@ function init_paint_brush_events(frame, painting, overlay, panel, $img, sync_to_
     let overlay_canvas = overlay[0];
     let overlay_ctx = overlay_canvas.getContext('2d');
 
-    if( panel.img_src )
-    {
-        painting_ctx.drawImage($img[0], 0, 0);
-    }
-    else
+    function fill_with_white()
     {
         painting_ctx.fillStyle = "#fff";
         painting_ctx.fillRect(0, 0, panel.img_size[0], panel.img_size[1]);
+    }
+
+    if( panel.img_src )
+    {
+        try
+        {
+            painting_ctx.drawImage($img[0], 0, 0);
+        }
+        catch(err)
+        {
+            fill_with_white()
+        }
+    }
+    else
+    {
+        fill_with_white()
     }
 
     function do_stroke_segment(evt)
@@ -301,7 +312,7 @@ function init_paint_brush_events(frame, painting, overlay, panel, $img, sync_to_
         }
     }
 
-    frame.mousedown(
+    $frame.mousedown(
         function(evt)
         {
             if( evt.which == 1 )
@@ -310,47 +321,34 @@ function init_paint_brush_events(frame, painting, overlay, panel, $img, sync_to_
 
                 last_x = point.x;
                 last_y = point.y;
-                dragging = true;
                 do_stroke_segment(evt);
 
-                // This stops painting strokes from also
-                // dragging the draggable parent:
-                evt.preventDefault();
-                evt.stopPropagation();
+                $frame.on("mousemove", do_stroke_segment);
+
+                $(document).mouseup(
+                    function()
+                    {
+                        $(document).off("mouseup");
+                        $frame.off("mousemove", do_stroke_segment);
+                    }
+                )
             }
             else
             {
                 let point = get_point_in_element(evt, painting);
                 do_eye_dropper(point);
-
-                evt.preventDefault();
-                evt.stopPropagation();
             }
+
+            // This stops painting strokes from also
+            // dragging the draggable parent:
+            evt.preventDefault();
+            evt.stopPropagation();
         }
     )
 
-    $(document).mouseup(
-        function()
-        {
-            dragging = false;
-        }
-    )
-
-    frame.mouseup(
-        function()
-        {
-            dragging = false;
-        }
-    )
-
-    frame.mousemove(
+    $frame.mousemove(
         function(evt)
         {
-            if( dragging )
-            {
-                do_stroke_segment(evt);
-            }
-
             overlay_ctx.clearRect(0, 0, overlay_canvas.width, overlay_canvas.height);
             let point = get_point_in_element(evt, overlay);
             draw_brush(overlay_ctx, point.x, point.y, 20);
