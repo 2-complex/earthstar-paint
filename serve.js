@@ -30,10 +30,13 @@ app.get('/files/*', (req, res) => {
     let shadaurl = 'https://sha-da.com' + req.url;
     axios({
         method: 'get',
-        url: shadaurl
+        url: shadaurl,
+        responseType: 'arraybuffer'
     }).then((response) => {
-        res.setHeader('content-type', 'image/png');
-        res.send(response.file);
+        res.writeHead(200, {
+            'Content-Type': 'image/png',
+        });
+        res.end(response.data);
     }, (error) => {
         res.status(500).send(error.message);
     });
