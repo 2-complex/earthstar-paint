@@ -78,8 +78,7 @@ function make_tools_frame()
     $lightness.mousedown(stop_prop);
     $radius.mousedown(stop_prop);
 
-
-    let $tools_frame = $("<div>", {"class":"tools-frame noselect"}).append(
+    let $tools_frame = $("<div>", {"class":"tools-frame"}).append(
         $("<div>", {"class":"labeled-slider"}).css({top : 10})
         .append(
             $("<div>", {"class": "prop-label"}).text("H"),

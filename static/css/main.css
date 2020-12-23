@@ -1,6 +1,12 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 button:focus {
@@ -31,15 +37,6 @@ body .screendoor-layer {
     height: 0px;
     left: 0px;
     right: 0px;
-}
-
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .editor div, canvas, img, button {

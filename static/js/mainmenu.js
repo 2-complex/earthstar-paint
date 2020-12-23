@@ -99,6 +99,8 @@ function make_new_comic_dialog(templates, callbacks)
         callbacks.close_dialog(index);
     })
 
+    $title_input.mousedown(stop_prop);
+
     let $new_comic_dialog = $("<div>", {"class" : "new-comic-dialog noselect"}).append(
         $title_input_container,
         $layout_input_container,
@@ -188,6 +190,12 @@ var $list_items;
 var $view;
 var g_callbacks = null;
 
+function open_comic(info)
+{
+    $view.empty();
+    $view.append(make_comic(info, g_callbacks));
+}
+
 function update_comic_list(comic_info_list)
 {
     $list_items.empty();
@@ -200,8 +208,7 @@ function update_comic_list(comic_info_list)
             $item.mouseup(
                 function(evt)
                 {
-                    $view.empty();
-                    $view.append(make_comic(info, g_callbacks));
+                    open_comic(info)
                 }
             )
         }
@@ -283,12 +290,13 @@ function make_app(callbacks)
             new_comic : function(template_index, title)
             {
                 $("#screendoor-layer").empty();
-                let template = copy_template_with_index(template_index)
+                let template_copy = copy_template_with_index(template_index)
 
                 if( title != "" )
                 {
-                    template.title = title
-                    model_add_comic(template)
+                    template_copy.title = title
+                    model_add_comic(template_copy)
+                    open_comic(template_copy)
                 }
             },
             close_app : function()

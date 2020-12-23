@@ -52,7 +52,7 @@ function make_login_dialog(default_name, default_address, default_secret, callba
         }
     })
 
-    let $login_dialog = $("<div>", {"class" : "dialog login-dialog noselect"}).append(
+    let $login_dialog = $("<div>", {"class" : "dialog login-dialog"}).append(
         $intro_exp,
         $name_input_container,
         $keypair_exp,
